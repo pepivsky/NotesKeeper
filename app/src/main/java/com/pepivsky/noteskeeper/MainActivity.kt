@@ -2,6 +2,8 @@ package com.pepivsky.noteskeeper
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
@@ -41,6 +43,29 @@ class MainActivity : AppCompatActivity() {
             displayNote()
         }
 
+    }
+
+    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        return super.onCreateOptionsMenu(menu)
+    }*/
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.action_next -> {
+            moveNext()
+                true
+            }
+
+            else -> return super.onOptionsItemSelected(item)
+        }
+
+
+
+    }
+
+    private fun moveNext() {
+        ++notePosition
+        displayNote()
     }
 
     private fun displayNote() {
