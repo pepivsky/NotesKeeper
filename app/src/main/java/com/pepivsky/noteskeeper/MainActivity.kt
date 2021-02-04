@@ -52,12 +52,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean { //creare el menu
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean { //controlar las opciones del menu, (cuando un item es presionado)
         return when(item.itemId) {
             R.id.action_next -> {
             moveNext()
@@ -71,9 +71,22 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun moveNext() {
+    private fun moveNext() { //metodo para pasar al suigiente objeto de la lista al darle tap al menu
         ++notePosition
         displayNote()
+        invalidateOptionsMenu() //este metodo llama a "onPRepareOptionsMenu" cada vez que se pasa al siguiente item
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean { //metodo para cambiar el item del menu en tiempo de ejecucion
+        if (notePosition >= DataManager.notes.lastIndex) {//si la posicion esta en el ultimo item, cambia el menu para evitar el error de salirnos del tamaño de la lista
+            val menuItem = menu?.findItem(R.id.action_next) //obteniendo el menu
+
+            if (menuItem != null) { //si el item no es nulo podemos trabajar sus propiedadea
+                menuItem.icon = getDrawable(R.drawable.ic_block) //cambiamos el icono
+                menuItem.isEnabled = false // desactiva el boton
+            }
+        }
+        return super.onPrepareOptionsMenu(menu)
     }
 
     private fun displayNote() {
