@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:title="Item"
+        android:title="@string/menu_action_next"
         android:id="@+id/action_next"
 
         />

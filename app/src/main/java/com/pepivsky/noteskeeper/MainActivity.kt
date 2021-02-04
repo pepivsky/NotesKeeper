@@ -7,6 +7,8 @@ import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
+import androidx.appcompat.widget.Toolbar
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,10 +17,15 @@ class MainActivity : AppCompatActivity() {
     lateinit var spinnerCourses: Spinner
     lateinit var edtNoteTitle: EditText
     lateinit var edtNoteText: EditText
+    lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        toolbar = findViewById(R.id.toolbar)
+
+        setSupportActionBar(toolbar)
+
 
         spinnerCourses = findViewById(R.id.spinnerCourses)
         edtNoteTitle = findViewById(R.id.edtNoteTitle)
@@ -45,9 +52,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        return super.onCreateOptionsMenu(menu)
-    }*/
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
