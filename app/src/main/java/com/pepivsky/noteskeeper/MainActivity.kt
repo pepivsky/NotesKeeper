@@ -48,6 +48,9 @@ class MainActivity : AppCompatActivity() {
 
         if (notePosition != POSITION_NOT_SET) {
             displayNote()
+        } else { //crear nota vacia
+            DataManager.notes.add(NoteInfo()) //guardando nota vacia
+            notePosition = DataManager.notes.lastIndex
         }
 
     }
@@ -97,5 +100,19 @@ class MainActivity : AppCompatActivity() {
         val coursePosition = DataManager.courses.values.indexOf(note.course)
         spinnerCourses.setSelection(coursePosition) //seteando la posicion del curso para que se muestre en el sppiner
 
+    }
+
+    //sobreescribiendo el metodo para que se guarden los datos al darle back a la actividad
+    override fun onPause() {
+        super.onPause()
+        saveNote() //funcion que guarda la nota
+    }
+
+    private fun saveNote() {
+        val note = DataManager.notes[notePosition] //obteniendo la nota
+        //seteando las propiedades
+        note.title = edtNoteTitle.text.toString()
+        note.text = edtNoteText.text.toString()
+        note.course = spinnerCourses.selectedItem as CourseInfo
     }
 }

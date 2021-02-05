@@ -31,4 +31,11 @@ class NotesListActivity : AppCompatActivity() {
             startActivity(activityIntent)
         }
     }
+
+    //sobreescribiendo el metodo para que cuando se guarde una nota nueva, se refresque la lista de la actividad,
+    override fun onResume() {
+        super.onResume()
+        (listNotes.adapter as ArrayAdapter<NoteInfo>).notifyDataSetChanged() //notificando al adapter que la lista ha cambiado, (se ha agregado un item)
+
+    }
 }
