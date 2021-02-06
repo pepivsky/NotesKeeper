@@ -21,6 +21,13 @@ object DataManager {
             "Did you know that by default an Android Service will tie up the UI thread?")
         notes.add(note)
 
+        course = courses["android_and_firebase"]!!
+        note = NoteInfo(
+            course, "Working with firebase",
+            "What is a realtime database?"
+        )
+        notes.add(note)
+
     }
 
     private fun initializeCourses() { //inicializa la lista de cursos
@@ -28,6 +35,9 @@ object DataManager {
         courses.set(course.courseId, course)
 
         course = CourseInfo("android_async", "Android async programming and services")
+        courses.set(course.courseId, course)
+
+        course = CourseInfo("android_and_firebase", "Android and firebase realtime database")
         courses.set(course.courseId, course)
     }
 

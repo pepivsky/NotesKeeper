@@ -44,7 +44,8 @@ class MainActivity : AppCompatActivity() {
         spinnerCourses.adapter = adapterCourses
 
         //recuperando la posicion del intent
-        notePosition = intent.getIntExtra(EXTRA_NOTE_POSITION, POSITION_NOT_SET) //si no hay posicio se devuelve la constante como valor por defecto
+        notePosition = savedInstanceState?.getInt(CURRENT_NOTE_POSITION, POSITION_NOT_SET) ?: //recuperando la posicion del bundle que se crea con onsaveInstanceState, si el valor de este es nulo significa que es la primera vez que se crea esta actividad, por lo tanto le asignamos el que viene del extra
+            intent.getIntExtra(EXTRA_NOTE_POSITION, POSITION_NOT_SET) //si no hay posicion se devuelve la constante como valor por defecto
 
         if (notePosition != POSITION_NOT_SET) {
             displayNote()
@@ -114,5 +115,11 @@ class MainActivity : AppCompatActivity() {
         note.title = edtNoteTitle.text.toString()
         note.text = edtNoteText.text.toString()
         note.course = spinnerCourses.selectedItem as CourseInfo
+    }
+
+    //sobreescribir el mteodo para guardar la posicion de lla nota actual y que se restaure al girar la pantalla, (evita que nuestra navegacion se reinice a valor obtenido del intent)
+    override fun onSaveInstanceState(outState: Bundle) { //recibe un bundle
+        super.onSaveInstanceState(outState)
+        outState?.putInt(CURRENT_NOTE_POSITION, notePosition) //guardando la posicion actual en el bundle
     }
 }
